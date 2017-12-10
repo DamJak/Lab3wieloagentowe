@@ -26,8 +26,9 @@ public class Filozof extends Agent
         System.out.println("Dodaje Server Agent");
         if(Fnd_Serv(this,"P","Pierog")!=null)
             Pierog = Fnd_Serv(this, "P", "Pierog")[0].getName();
+	set_widelec();
 
-        addBehaviour(new TickerBehaviour( this, 1000) //cykliczne generowanie tokenów
+        addBehaviour(new TickerBehaviour( this, 1000)
         {
             protected void onTick()
             {
@@ -46,20 +47,45 @@ public class Filozof extends Agent
                 {
                     if(Rcv.getPerformative() == ACLMessage.AGREE)
                     {
-                        System.out.println("Wolny pierog");
+                        ACLMessage Sndw1 = new ACLMessage();
+                        Sndw1.setPerformative(ACLMessage.INFORM);
+                        index = Rand(0,1);
+                        Sndw1.addReceiver(wid[index]);
+                        myAgent.send(Sndw1);
+                        MessageTemplate m11 = MessageTemplate.MatchPerformative(ACLMessage.CONFIRM);
+                        MessageTemplate m12 = MessageTemplate.MatchPerformative(ACLMessage.DISCONFIRM);
+                        MessageTemplate b1 = MessageTemplate.or(m11,m12);
+                        ACLMessage Rcvw1 = myAgent.blockingReceive(b1);
+                        if(Rcvw1 != null)
+                        {
+                            if (Rcvw1.getPerformative() == ACLMessage.CONFIRM)
+                            {
+                                System.out.println("ma widelec");
+                            }
+                            if (Rcvw1.getPerformative() == ACLMessage.DISCONFIRM)
+                            {
+                                System.out.println("nie ma widelca");
+                            }
+                        }
                     }
                     if (Rcv.getPerformative() == ACLMessage.ACCEPT_PROPOSAL)
                     {
                         System.out.println("Brak pierogow");
                     }
                 }
-
-
             }
         });
     }
 
-
+    public void set_widelec()
+    {
+        if(Fnd_Serv(this,"W5","Widelec")!=null) {
+            wid[0] = Fnd_Serv(this, "W5", "Widelec")[0].getName();
+        }
+        if(Fnd_Serv(this,"W1","Widelec")!=null) {
+            wid[1] = Fnd_Serv(this, "W1", "Widelec")[0].getName();
+        }
+    }
 
     public DFAgentDescription[] Fnd_Serv(Agent myAgent,String name, String type)
     {
@@ -74,6 +100,10 @@ public class Filozof extends Agent
         } catch (Exception ex) {
         }
         return result;
+    }
+    public static Integer Rand(Integer a, Integer b){
+        Random r = new Random();
+        return r.nextInt(b-a+1)+a;
     }
 
 }
