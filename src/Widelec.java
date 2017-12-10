@@ -47,6 +47,11 @@ public class Widelec extends Agent{
                         }
                         myAgent.send(Answ);
                     }
+                    if(rcv.getPerformative() == ACLMessage.INFORM_IF)//zwolnienie widelca
+                    {
+                        flag = false;
+                    }
+                    myAgent.send(Answ);
                 }else
                 {
                     block();

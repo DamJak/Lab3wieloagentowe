@@ -87,6 +87,11 @@ public class Filozof extends Agent
                         }
                         if (Rcvw2.getPerformative() == ACLMessage.DISCONFIRM) {
                             System.out.println("nie ma widelca");
+                            ACLMessage Sndw1zw = new ACLMessage();
+                            Sndw1zw.setPerformative(ACLMessage.INFORM_IF);
+                            Sndw1zw.addReceiver(wid[index]);
+                            myAgent.send(Sndw1zw);
+                            ilewidelcow = 0;
                         }
                     }
                 }
