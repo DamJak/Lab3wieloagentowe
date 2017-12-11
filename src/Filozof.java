@@ -134,44 +134,29 @@ public class Filozof extends Agent
 
     public void set_widelec()
     {
-        if(getLocalName().toString().equals("F1"))
+        DFAgentDescription[] result = Fnd_Serv(this,"","Widelec");
+        int znalezionewidelce = result.length;
+        if(ile_filozofow == znalezionewidelce)
         {
-            if(Fnd_Serv(this,"W5","Widelec")!=null) {
-                wid[0] = Fnd_Serv(this, "W5", "Widelec")[0].getName();
+            for(int i = 1; i<=znalezionewidelce; i++)
+            {
+                if(getLocalName().toString().equals("F"+i))
+                {
+                    for(int w=0; w<2; w++)
+                    {
+                        for(int j = 0; j<znalezionewidelce; j++)
+                        {
+                            int a = (i-1<1)? znalezionewidelce : i-1;
+                            int b = i;
+                            if(result[j].getName().toString().contains("W"+a))
+                                wid[0] = result[j].getName();
+                            else if(result[j].getName().toString().contains("W"+b))
+                                wid[1] = result[j].getName();
+                        }
+                    }
+                }
             }
-            if(Fnd_Serv(this,"W1","Widelec")!=null) {
-                wid[1] = Fnd_Serv(this, "W1", "Widelec")[0].getName();
-            }
         }
-        else if(getLocalName().toString().equals("F2"))
-        {
-            if(Fnd_Serv(this,"W1","Widelec")!=null)
-                wid[0]=Fnd_Serv(this,"W1","Widelec")[0].getName();
-            if(Fnd_Serv(this,"W2","Widelec")!=null)
-                wid[1]=Fnd_Serv(this,"W2","Widelec")[0].getName();
-        }
-        else if(getLocalName().toString().equals("F3"))
-        {
-            if(Fnd_Serv(this,"W2","Widelec")!=null)
-                wid[0]=Fnd_Serv(this,"W2","Widelec")[0].getName();
-            if(Fnd_Serv(this,"W3","Widelec")!=null)
-                wid[1]=Fnd_Serv(this,"W3","Widelec")[0].getName();
-        }
-        else if(getLocalName().toString().equals("F4"))
-        {
-            if(Fnd_Serv(this,"W3","Widelec")!=null)
-                wid[0]=Fnd_Serv(this,"W3","Widelec")[0].getName();
-            if(Fnd_Serv(this,"W4","Widelec")!=null)
-                wid[1]=Fnd_Serv(this,"W4","Widelec")[0].getName();
-        }
-        else if(getLocalName().toString().equals("F5"))
-        {
-            if(Fnd_Serv(this,"W4","Widelec")!=null)
-                wid[0]=Fnd_Serv(this,"W4","Widelec")[0].getName();
-            if(Fnd_Serv(this,"W5","Widelec")!=null)
-                wid[1]=Fnd_Serv(this,"W5","Widelec")[0].getName();
-        }
-
     }
 
 
@@ -181,7 +166,6 @@ public class Filozof extends Agent
         DFAgentDescription DFAD = new DFAgentDescription();
         ServiceDescription SD = new ServiceDescription();
         SD.setType(type);
-        SD.setName(name);
         DFAD.addServices(SD);
         try {
             result = DFService.search(myAgent, DFAD);
@@ -193,5 +177,4 @@ public class Filozof extends Agent
         Random r = new Random();
         return r.nextInt(b-a+1)+a;
     }
-
 }
