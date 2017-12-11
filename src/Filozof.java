@@ -28,7 +28,7 @@ public class Filozof extends Agent
             Pierog = Fnd_Serv(this, "P", "Pierog")[0].getName();
         set_widelec();
 
-        addBehaviour(new TickerBehaviour( this, 1000)
+        addBehaviour(new TickerBehaviour( this, Rand(500,1500))
         {
             protected void onTick()
             {
@@ -134,13 +134,46 @@ public class Filozof extends Agent
 
     public void set_widelec()
     {
-        if(Fnd_Serv(this,"W5","Widelec")!=null) {
-            wid[0] = Fnd_Serv(this, "W5", "Widelec")[0].getName();
+        if(getLocalName().toString().equals("F1"))
+        {
+            if(Fnd_Serv(this,"W5","Widelec")!=null) {
+                wid[0] = Fnd_Serv(this, "W5", "Widelec")[0].getName();
+            }
+            if(Fnd_Serv(this,"W1","Widelec")!=null) {
+                wid[1] = Fnd_Serv(this, "W1", "Widelec")[0].getName();
+            }
         }
-        if(Fnd_Serv(this,"W1","Widelec")!=null) {
-            wid[1] = Fnd_Serv(this, "W1", "Widelec")[0].getName();
+        else if(getLocalName().toString().equals("F2"))
+        {
+            if(Fnd_Serv(this,"W1","Widelec")!=null)
+                wid[0]=Fnd_Serv(this,"W1","Widelec")[0].getName();
+            if(Fnd_Serv(this,"W2","Widelec")!=null)
+                wid[1]=Fnd_Serv(this,"W2","Widelec")[0].getName();
         }
+        else if(getLocalName().toString().equals("F3"))
+        {
+            if(Fnd_Serv(this,"W2","Widelec")!=null)
+                wid[0]=Fnd_Serv(this,"W2","Widelec")[0].getName();
+            if(Fnd_Serv(this,"W3","Widelec")!=null)
+                wid[1]=Fnd_Serv(this,"W3","Widelec")[0].getName();
+        }
+        else if(getLocalName().toString().equals("F4"))
+        {
+            if(Fnd_Serv(this,"W3","Widelec")!=null)
+                wid[0]=Fnd_Serv(this,"W3","Widelec")[0].getName();
+            if(Fnd_Serv(this,"W4","Widelec")!=null)
+                wid[1]=Fnd_Serv(this,"W4","Widelec")[0].getName();
+        }
+        else if(getLocalName().toString().equals("F5"))
+        {
+            if(Fnd_Serv(this,"W4","Widelec")!=null)
+                wid[0]=Fnd_Serv(this,"W4","Widelec")[0].getName();
+            if(Fnd_Serv(this,"W5","Widelec")!=null)
+                wid[1]=Fnd_Serv(this,"W5","Widelec")[0].getName();
+        }
+
     }
+
 
     public DFAgentDescription[] Fnd_Serv(Agent myAgent,String name, String type)
     {
