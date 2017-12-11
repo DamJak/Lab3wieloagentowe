@@ -33,7 +33,13 @@ public class Pierogi extends Agent
                     ACLMessage Answ = rcv.createReply();
                     if(rcv.getPerformative() == ACLMessage.INFORM)//Sprawdzanie czy dostepne sa pierogi
                     {
-                        Answ.setPerformative(ACLMessage.AGREE);
+                        if(ile[0]<iloscpier)//jesli sa dostepne
+                        {
+                            Answ.setPerformative(ACLMessage.AGREE);
+                        }else if (ile[0]>=iloscpier)//jesli nie sa dostepne
+                        {
+                            Answ.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+                        }
                         myAgent.send(Answ);
                     }
 

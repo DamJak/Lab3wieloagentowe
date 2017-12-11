@@ -95,6 +95,18 @@ public class Filozof extends Agent
                         }
                     }
                 }
+                else if(ilewidelcow == 2)
+                {
+                    ACLMessage Sndw1zw = new ACLMessage();
+                    Sndw1zw.setPerformative(ACLMessage.INFORM_IF);
+                    Sndw1zw.addReceiver(wid[index]);
+                    myAgent.send(Sndw1zw);
+                    ACLMessage Sndw2zw = new ACLMessage();
+                    Sndw2zw.setPerformative(ACLMessage.INFORM_IF);
+                    Sndw2zw.addReceiver(wid[1-index]);
+                    myAgent.send(Sndw2zw);
+                    ilewidelcow = 0;
+                }
             }
         });
     }
