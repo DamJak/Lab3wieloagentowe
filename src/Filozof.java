@@ -97,6 +97,27 @@ public class Filozof extends Agent
                 }
                 else if(ilewidelcow == 2)
                 {
+                    ACLMessage Rqst = new ACLMessage();
+                    Rqst.setPerformative(ACLMessage.INFORM_IF);
+                    Rqst.addReceiver(Pierog);
+                    myAgent.send(Rqst);
+                    MessageTemplate m11 = MessageTemplate.MatchPerformative(ACLMessage.CFP);
+                    MessageTemplate m12 = MessageTemplate.MatchPerformative(ACLMessage.REJECT_PROPOSAL);
+                    MessageTemplate b1 = MessageTemplate.or(m11,m12);
+                    ACLMessage Rcvwp = myAgent.blockingReceive(b1);
+
+                    if(Rcvwp != null)
+                    {
+                        if (Rcvwp.getPerformative() == ACLMessage.CFP)
+                        {
+                           System.out.println("mam pieroga");
+                            ilepierogow++;
+                        }
+                        if (Rcvwp.getPerformative() == ACLMessage.REJECT_PROPOSAL)
+                        {
+                            System.out.println("Pierogi byly nie dostepne");
+                        }
+                    }
                     ACLMessage Sndw1zw = new ACLMessage();
                     Sndw1zw.setPerformative(ACLMessage.INFORM_IF);
                     Sndw1zw.addReceiver(wid[index]);

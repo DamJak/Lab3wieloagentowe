@@ -42,6 +42,19 @@ public class Pierogi extends Agent
                         }
                         myAgent.send(Answ);
                     }
+                    if(rcv.getPerformative() == ACLMessage.INFORM_IF)//pobranie pieroga
+                    {
+                        if(ile[0] <iloscpier)
+                        {
+                            ile[0]++;
+                            Answ.setPerformative(ACLMessage.CFP);
+                        }
+                        else //jesli nie sa dostepne
+                        {
+                            Answ.setPerformative(ACLMessage.REJECT_PROPOSAL);
+                        }
+                        myAgent.send(Answ);
+                    }
 
                 }else
                 {
